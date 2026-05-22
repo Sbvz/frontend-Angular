@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:4000/api/registros'
+    apiUrl: 'https://backend-node-express-production.up.railway.app'
 };
