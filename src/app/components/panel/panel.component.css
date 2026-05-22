@@ -1,0 +1,45 @@
+header {
+
+    background: #2c7be5;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px;
+
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+
+}
+
+button {
+
+    background: #e74c3c;
+    border: none;
+    color: white;
+
+    padding: 8px 12px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+}
+
+main {
+
+    padding: 25px;
+
+}

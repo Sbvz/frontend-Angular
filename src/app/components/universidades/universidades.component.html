@@ -1,0 +1,77 @@
+<div class="container">
+
+  <!-- Top bar — mismo estilo que el dashboard -->
+  <div class="top-bar">
+    <h1>🏫 Universidades de Colombia</h1>
+    <button class="logout" (click)="volver()">← Volver al dashboard</button>
+  </div>
+
+  <!-- Buscador -->
+  <div class="card buscador-wrap">
+    <input
+      class="buscador"
+      type="text"
+      placeholder="🔍  Buscar universidad por nombre..."
+      [(ngModel)]="busqueda"
+      (input)="buscar()"
+    >
+    <span class="resultado-count" *ngIf="!cargando">
+      {{ filtradas.length }} universidades encontradas
+    </span>
+  </div>
+
+  <!-- Cargando -->
+  <p class="estado" *ngIf="cargando">Cargando universidades...</p>
+
+  <!-- Error -->
+  <div class="card estado-error" *ngIf="error">
+    ⚠️ No se pudo conectar con la API. Verifica tu conexión a internet.
+  </div>
+
+  <!-- Layout principal: lista + mapa -->
+  <div class="layout-principal" *ngIf="!cargando && !error">
+
+    <!-- ── Lista de universidades ── -->
+    <div class="lista-wrap">
+      <div
+        class="uni-card"
+        *ngFor="let u of filtradas"
+        [class.seleccionada]="universidadSeleccionada?.name === u.name"
+      >
+        <p class="uni-nombre">{{ u.name }}</p>
+        <p class="uni-dominio">🌐 {{ u.domains[0] }}</p>
+        <div class="uni-acciones">
+          <a class="uni-link" [href]="u.web_pages[0]" target="_blank">Visitar sitio</a>
+          <button
+            class="btn-mapa"
+            (click)="verEnMapa(u)"
+            [disabled]="geocodificando"
+          >
+            {{ geocodificando && universidadSeleccionada?.name === u.name
+               ? '🔄 Buscando...'
+               : '📍 Ver en mapa' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="card sin-resultados" *ngIf="filtradas.length === 0">
+        No se encontraron universidades con ese nombre.
+      </div>
+    </div>
+
+    <!-- ── Mapa Leaflet ── -->
+    <div class="mapa-wrap">
+      <div class="mapa-header">
+        <span *ngIf="!universidadSeleccionada">
+          🗺️ Selecciona una universidad para verla en el mapa
+        </span>
+        <span *ngIf="universidadSeleccionada">
+          📍 {{ universidadSeleccionada.name }}
+        </span>
+      </div>
+      <div id="mapa-universidades"></div>
+    </div>
+
+  </div>
+
+</div>

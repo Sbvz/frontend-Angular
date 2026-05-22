@@ -1,0 +1,26 @@
+<div class="container">
+
+  <h2>Registrar asignatura</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+
+    <label>Asignatura</label>
+    <select formControlName="asignatura" (change)="seleccionarMateria()">
+      <option value="">Seleccione una asignatura</option>
+      <option *ngFor="let m of listaMaterias" [value]="m">{{m}}</option>
+    </select>
+
+    <label>Créditos</label>
+    <input type="number" formControlName="creditos" readonly>
+
+    <label>Nota (0 - 5)</label>
+    <input type="number" min="0" max="5" step="0.1" formControlName="nota">
+
+    <div class="botones">
+      <button type="submit">Guardar</button>
+      <button type="button" (click)="cancelar()">Cancelar</button>
+    </div>
+
+  </form>
+
+</div>

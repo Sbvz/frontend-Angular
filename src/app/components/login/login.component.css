@@ -1,0 +1,188 @@
+/* ── Fondo de la página ──────────────────────────────────── */
+.pagina {
+  min-height: 100vh;
+  background: #f0f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial;
+  padding: 30px 16px;
+}
+
+/* ── Card — mismo estilo que .card del dashboard ─────────── */
+.login-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.registro-card {
+  max-width: 500px;
+}
+
+/* ── Encabezado ──────────────────────────────────────────── */
+.login-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.login-header h1 {
+  margin: 0 0 6px;
+  font-size: 1.35rem;
+  color: #2c3e50;
+}
+
+.login-header p {
+  margin: 0;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* ── Campos ──────────────────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  font-family: Arial;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #2c7be5;
+}
+
+/* Fila de dos campos */
+.fila-dos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ── Botones — mismos colores que el dashboard ───────────── */
+.btn-primary {
+  width: 100%;
+  padding: 11px;
+  background: #2c7be5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  font-family: Arial;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover    { background: #1a5edb; }
+.btn-primary:disabled { background: #90b4e8; cursor: not-allowed; }
+
+.btn-google {
+  width: 100%;
+  padding: 10px;
+  background: white;
+  color: #444;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  font-family: Arial;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-google:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+/* ── Divisor ─────────────────────────────────────────────── */
+.divider {
+  text-align: center;
+  position: relative;
+  margin: 14px 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #eee;
+}
+
+.divider span {
+  background: white;
+  padding: 0 10px;
+  position: relative;
+  font-size: 0.82rem;
+  color: #aaa;
+}
+
+/* ── Preview nombre completo ─────────────────────────────── */
+.nombre-preview {
+  background: #eaf2ff;
+  border: 1px solid #c0d9f7;
+  border-radius: 6px;
+  padding: 9px 14px;
+  font-size: 0.9rem;
+  color: #2c7be5;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+/* ── Enlace cambiar modo ─────────────────────────────────── */
+.cambiar-modo {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.cambiar-modo span {
+  color: #2c7be5;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cambiar-modo span:hover { text-decoration: underline; }
+
+/* ── Etiquetas req / opc ─────────────────────────────────── */
+.req { color: #e74c3c; }
+.opc { color: #aaa; font-size: 0.75rem; }
+
+/* ── Badge Google (modo completar perfil) ────────────────── */
+.google-badge {
+  display: inline-block;
+  background: #eaf2ff;
+  color: #2c7be5;
+  font-size: 0.82rem;
+  font-weight: bold;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}

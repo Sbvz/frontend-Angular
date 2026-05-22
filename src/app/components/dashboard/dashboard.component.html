@@ -1,0 +1,163 @@
+<div class="container">
+
+  <!-- ── Top bar con bienvenida ──────────────────────────── -->
+  <div class="top-bar">
+    <div class="bienvenida">
+      <p class="saludo">Bienvenido, {{ nombreUsuario }} 👋</p>
+      <h1>Panel Académico</h1>
+    </div>
+    <button class="logout" (click)="cerrarSesion()">Cerrar sesión</button>
+  </div>
+
+  <!-- ── Widget del clima ─────────────────────────────────── -->
+  <div class="clima-card">
+
+    <div class="ciudades-tabs">
+      <button
+        class="tab-ciudad"
+        *ngFor="let c of ciudades"
+        [class.activa]="ciudadActual === c.nombre"
+        (click)="seleccionarCiudad(c)"
+      >
+        {{ c.nombre }}
+      </button>
+      <button class="tab-ciudad tab-buscar" (click)="mostrarBuscador = !mostrarBuscador">🔍</button>
+      <button class="tab-ciudad tab-gps" (click)="usarGPS()" [disabled]="usandoGPS">
+        {{ usandoGPS ? '🔄' : '📡' }}
+      </button>
+    </div>
+
+    <div class="buscador-ciudad" *ngIf="mostrarBuscador">
+      <input
+        type="text"
+        placeholder="Escribe una ciudad, ej: Pasto"
+        [(ngModel)]="ciudadManual"
+        (keyup.enter)="buscarCiudadManual()"
+      >
+      <button (click)="buscarCiudadManual()" [disabled]="buscandoCiudad">
+        {{ buscandoCiudad ? 'Buscando...' : 'Buscar' }}
+      </button>
+      <button class="btn-cancelar" (click)="mostrarBuscador = false">✕</button>
+    </div>
+
+    <div class="clima-loading" *ngIf="cargandoClima">
+      <span>🌍 Cargando clima de {{ ciudadActual || 'tu ubicación' }}...</span>
+    </div>
+
+    <div class="clima-body" *ngIf="!cargandoClima && clima && !errorClima">
+      <div class="clima-emoji">{{ climaInfo.emoji }}</div>
+      <div class="clima-centro">
+        <p class="clima-ciudad">📍 {{ ciudadActual }}</p>
+        <p class="clima-temp">{{ clima.temperature_2m }}°C</p>
+        <p class="clima-desc">{{ climaInfo.texto }}</p>
+      </div>
+      <div class="clima-extras">
+        <div class="clima-extra-item">
+          <span class="extra-icon">💧</span>
+          <span class="extra-valor">{{ clima.relative_humidity_2m }}%</span>
+          <span class="extra-label">Humedad</span>
+        </div>
+        <div class="clima-extra-item">
+          <span class="extra-icon">💨</span>
+          <span class="extra-valor">{{ clima.wind_speed_10m }}</span>
+          <span class="extra-label">km/h viento</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="clima-error" *ngIf="!cargandoClima && errorClima">
+      ⚠️ No se pudo cargar el clima. Intenta con otra ciudad.
+    </div>
+
+  </div>
+
+  <!-- ── Stats ───────────────────────────────────────────── -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Promedio ponderado</h3>
+      <p class="numero">{{ promedioPonderado | number:'1.2-2' }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Clasificación</h3>
+      <p class="numero">{{ clasificacion }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Promedio histórico</h3>
+      <p class="numero">{{ promedioHistorico | number:'1.2-2' }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Total créditos</h3>
+      <p class="numero">{{ totalCreditos }}</p>
+    </div>
+  </div>
+
+  <!-- ── Mejor / Menor ───────────────────────────────────── -->
+  <div class="info-grid">
+    <div class="card">
+      <h3>Asignatura con mejor nota</h3>
+      <p>{{ asignaturaMayor?.asignatura }} — {{ asignaturaMayor?.nota }}</p>
+    </div>
+    <div class="card">
+      <h3>Asignatura con menor nota</h3>
+      <p>{{ asignaturaMenor?.asignatura }} — {{ asignaturaMenor?.nota }}</p>
+    </div>
+  </div>
+
+  <!-- ── Gráficas ─────────────────────────────────────────── -->
+  <div class="charts">
+    <div class="card">
+      <h3>Notas por asignatura</h3>
+      <canvas id="graficaNotas"></canvas>
+    </div>
+    <div class="card">
+      <h3>Evolución del promedio</h3>
+      <canvas id="graficaPromedio"></canvas>
+    </div>
+  </div>
+
+  <!-- ── Acciones ─────────────────────────────────────────── -->
+  <div class="acciones">
+    <button routerLink="/registro">Registrar asignatura</button>
+    <button routerLink="/historial">Ver historial</button>
+    <button routerLink="/universidades">Ver universidades</button>
+  </div>
+
+  <!-- ── Instituciones cercanas ───────────────────────────── -->
+  <div class="card uni-section">
+    <div class="uni-header">
+      <h3>📍 Instituciones cerca de {{ ciudadCercanas || 'ti' }}</h3>
+      <span class="api-badge">API externa</span>
+    </div>
+    <p class="sub-estado" *ngIf="cargandoCercanas">Detectando ubicación...</p>
+    <div class="uni-grid" *ngIf="!cargandoCercanas && universidadesCercanas.length > 0">
+      <div class="uni-card" *ngFor="let u of universidadesCercanas">
+        <p class="uni-nombre">{{ u.name }}</p>
+        <p class="uni-dominio">🌐 {{ u.domains[0] }}</p>
+        <a class="uni-link" [href]="u.web_pages[0]" target="_blank">Visitar sitio</a>
+      </div>
+    </div>
+    <p class="sub-estado" *ngIf="!cargandoCercanas && universidadesCercanas.length === 0">
+      No se encontraron instituciones en esta ciudad.
+    </p>
+  </div>
+
+  <!-- ── Universidades de referencia ─────────────────────── -->
+  <div class="card uni-section" style="margin-top:20px; margin-bottom:40px;">
+    <div class="uni-header">
+      <h3>🏫 Universidades de referencia en Colombia</h3>
+      <span class="api-badge">API externa</span>
+    </div>
+    <p class="sub-estado" *ngIf="cargandoUniversidades">Cargando...</p>
+    <div class="uni-grid" *ngIf="!cargandoUniversidades">
+      <div class="uni-card" *ngFor="let u of universidades">
+        <p class="uni-nombre">{{ u.name }}</p>
+        <p class="uni-dominio">🌐 {{ u.domains[0] }}</p>
+        <a class="uni-link" [href]="u.web_pages[0]" target="_blank">Visitar sitio</a>
+      </div>
+    </div>
+    <div class="acciones" style="margin-bottom:0; margin-top:16px;">
+      <button routerLink="/universidades">Ver todas las instituciones →</button>
+    </div>
+  </div>
+
+</div>

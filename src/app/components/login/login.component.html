@@ -1,0 +1,148 @@
+<div class="pagina">
+
+  <!-- ════════════════════════════════════════════════════════
+       MODO: INICIAR SESIÓN
+  ════════════════════════════════════════════════════════ -->
+  <div class="login-card" *ngIf="modo === 'login'">
+
+    <div class="login-header">
+      <h1>📚 Rendimiento Académico</h1>
+      <p>Inicia sesión para continuar</p>
+    </div>
+
+    <div class="form-group">
+      <label>Correo electrónico</label>
+      <input type="email" placeholder="tucorreo@ejemplo.com" [(ngModel)]="email">
+    </div>
+
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input type="password" placeholder="Tu contraseña" [(ngModel)]="password">
+    </div>
+
+    <button class="btn-primary" (click)="loginEmail()" [disabled]="cargando">
+      {{ cargando ? 'Iniciando sesión...' : 'Iniciar sesión' }}
+    </button>
+
+    <div class="divider"><span>o</span></div>
+
+    <button class="btn-google" (click)="loginGoogle()" [disabled]="cargando">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
+      Ingresar con Google
+    </button>
+
+    <p class="cambiar-modo">
+      ¿No tienes cuenta?
+      <span (click)="irARegistro()">Regístrate aquí</span>
+    </p>
+
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       MODO: CREAR CUENTA (EMAIL)
+  ════════════════════════════════════════════════════════ -->
+  <div class="login-card registro-card" *ngIf="modo === 'registro'">
+
+    <div class="login-header">
+      <h1>📚 Rendimiento Académico</h1>
+      <p>Crea tu cuenta</p>
+    </div>
+
+    <div class="fila-dos">
+      <div class="form-group">
+        <label>Primer nombre <span class="req">*</span></label>
+        <input type="text" placeholder="Ej: Juan" [(ngModel)]="primerNombre">
+      </div>
+      <div class="form-group">
+        <label>Segundo nombre <span class="opc">(opcional)</span></label>
+        <input type="text" placeholder="Ej: Carlos" [(ngModel)]="segundoNombre">
+      </div>
+    </div>
+
+    <div class="fila-dos">
+      <div class="form-group">
+        <label>Primer apellido <span class="req">*</span></label>
+        <input type="text" placeholder="Ej: Pérez" [(ngModel)]="primerApellido">
+      </div>
+      <div class="form-group">
+        <label>Segundo apellido <span class="opc">(opcional)</span></label>
+        <input type="text" placeholder="Ej: García" [(ngModel)]="segundoApellido">
+      </div>
+    </div>
+
+    <div class="nombre-preview" *ngIf="nombreCompleto">
+      👤 {{ nombreCompleto }}
+    </div>
+
+    <div class="form-group">
+      <label>Correo electrónico <span class="req">*</span></label>
+      <input type="email" placeholder="tucorreo@ejemplo.com" [(ngModel)]="emailReg">
+    </div>
+
+    <div class="form-group">
+      <label>Contraseña <span class="req">*</span> <span class="opc">(mín. 6 caracteres)</span></label>
+      <input type="password" placeholder="Crea una contraseña" [(ngModel)]="passwordReg">
+    </div>
+
+    <button class="btn-primary" (click)="registrar()" [disabled]="cargando">
+      {{ cargando ? 'Creando cuenta...' : 'Crear cuenta' }}
+    </button>
+
+    <div class="divider"><span>o</span></div>
+
+    <button class="btn-google" (click)="loginGoogle()" [disabled]="cargando">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
+      Registrarse con Google
+    </button>
+
+    <p class="cambiar-modo">
+      ¿Ya tienes cuenta?
+      <span (click)="irALogin()">Inicia sesión aquí</span>
+    </p>
+
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       MODO: COMPLETAR PERFIL (primera vez con Google)
+  ════════════════════════════════════════════════════════ -->
+  <div class="login-card registro-card" *ngIf="modo === 'completar'">
+
+    <div class="login-header">
+      <div class="google-badge">🔵 Cuenta de Google vinculada</div>
+      <h1>¡Bienvenido!</h1>
+      <p>Antes de continuar, cuéntanos cómo te llamas</p>
+    </div>
+
+    <div class="fila-dos">
+      <div class="form-group">
+        <label>Primer nombre <span class="req">*</span></label>
+        <input type="text" placeholder="Ej: Juan" [(ngModel)]="cPrimerNombre">
+      </div>
+      <div class="form-group">
+        <label>Segundo nombre <span class="opc">(opcional)</span></label>
+        <input type="text" placeholder="Ej: Carlos" [(ngModel)]="cSegundoNombre">
+      </div>
+    </div>
+
+    <div class="fila-dos">
+      <div class="form-group">
+        <label>Primer apellido <span class="req">*</span></label>
+        <input type="text" placeholder="Ej: Pérez" [(ngModel)]="cPrimerApellido">
+      </div>
+      <div class="form-group">
+        <label>Segundo apellido <span class="opc">(opcional)</span></label>
+        <input type="text" placeholder="Ej: García" [(ngModel)]="cSegundoApellido">
+      </div>
+    </div>
+
+    <div class="nombre-preview" *ngIf="nombreCompletoGoogle">
+      👤 {{ nombreCompletoGoogle }}
+    </div>
+
+    <button class="btn-primary" (click)="completarPerfil()" [disabled]="cargando">
+      {{ cargando ? 'Guardando...' : 'Guardar y entrar al dashboard' }}
+    </button>
+
+  </div>
+
+</div>

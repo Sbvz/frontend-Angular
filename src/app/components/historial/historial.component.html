@@ -1,0 +1,37 @@
+<div class="container">
+
+<h2>Historial académico</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Asignatura</th>
+<th>Nota</th>
+<th>Créditos</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr *ngFor="let r of registros">
+
+<td>{{r.asignatura}}</td>
+<td>{{r.nota}}</td>
+<td>{{r.creditos}}</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<button (click)="volverInicio()">
+Volver al inicio
+</button>
+
+</div>

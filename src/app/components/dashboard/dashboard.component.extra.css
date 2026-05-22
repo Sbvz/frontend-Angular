@@ -1,0 +1,59 @@
+/* ── Sección universidades en el dashboard ── */
+.universidades-section {
+  margin-top: 2rem;
+}
+
+.universidades-section h3 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.universidades-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.uni-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.uni-card h4 {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  color: #2c7be5;
+}
+
+.uni-card p {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.uni-card a {
+  font-size: 0.85rem;
+  color: #27ae60;
+  text-decoration: none;
+}
+
+.uni-card a:hover {
+  text-decoration: underline;
+}
+
+.ver-mas {
+  background: none;
+  border: none;
+  color: #2c7be5;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.ver-mas:hover {
+  text-decoration: underline;
+}
